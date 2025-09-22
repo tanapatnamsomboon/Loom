@@ -1,14 +1,18 @@
 #pragma once
-#include <iostream>
+#include "Window.h"
 
 namespace Loom
 {
     class Application
     {
     public:
-        void Run()
-        {
-            std::cout << "Loom Engine Running..." << std::endl;
-        }
+        Application();
+        virtual ~Application();
+
+        void Run();
+
+    private:
+        std::unique_ptr<Window> m_Window;
+        bool m_Running = true;
     };
 } // namespace Loom
