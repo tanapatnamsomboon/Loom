@@ -1,0 +1,55 @@
+# Build directories
+build/
+out/
+cmake-build-*/
+
+# Compiled object files
+*.o
+*.obj
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Libraries
+*.lib
+*.a
+*.so
+*.dylib
+*.dll
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.suo
+*.sdf
+*.opensdf
+*.db
+*.opendb
+*.ipch
+x64/
+x86/
+Debug/
+Release/
+
+# CLion
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+# Other
+*.log
+.DS_Store
+Thumbs.db
