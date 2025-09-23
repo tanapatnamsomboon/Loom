@@ -19,7 +19,7 @@ namespace Loom
     {
         None = 0,
         WindowClose, WindowResize,
-        KeyPressed, KeyReleased,
+        KeyPressed, KeyReleased, KeyTyped,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
     };
 
@@ -71,4 +71,4 @@ namespace Loom
 
 #define EVENT_CLASS_CATEGORY(category) \
     virtual int GetCategoryFlags() const override { return category; }
-}
+} // namespace Loom

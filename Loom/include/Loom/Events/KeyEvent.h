@@ -63,4 +63,20 @@ namespace Loom
 
         EVENT_CLASS_TYPE(KeyReleased)
     };
-}
+
+    class KeyTypedEvent final : public KeyEvent
+    {
+    public:
+        explicit KeyTypedEvent(const int keycode)
+            : KeyEvent(keycode) {}
+
+        [[nodiscard]] std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "KeyTyped: " << m_KeyCode;
+            return ss.str();
+        }
+
+        EVENT_CLASS_TYPE(KeyTyped)
+    };
+} // namespace Loom
