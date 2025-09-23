@@ -1,7 +1,7 @@
-#include "Window.h"
+#include "Loom/Core/Window.h"
 
 #ifdef LOOM_PLATFORM_GLFW
-#include "Platform/GLFW/GLFWWindow.h"
+#   include "Platform/GLFW/GLFWWindow.h"
 #endif
 
 namespace Loom

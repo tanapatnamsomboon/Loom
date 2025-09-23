@@ -1,19 +1,22 @@
 #pragma once
-#include "Core/Window.h"
+
+#include "Loom/Core/Window.h"
 #include <GLFW/glfw3.h>
 
 namespace Loom
 {
-    class GLFWWindow : public Window
+    class GLFWWindow final : public Window
     {
     public:
-        GLFWWindow(const WindowProps& props);
-        virtual ~GLFWWindow();
+        explicit GLFWWindow(const WindowProps& props);
+        ~GLFWWindow() override;
 
         void OnUpdate() override;
 
-        unsigned int GetWidth() const override { return m_Data.Width; }
-        unsigned int GetHeight() const override { return m_Data.Height; }
+        [[nodiscard]] unsigned int GetWidth() const override { return m_Data.Width; }
+        [[nodiscard]] unsigned int GetHeight() const override { return m_Data.Height; }
+
+        void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
     private:
         void Init(const WindowProps& props);
@@ -26,6 +29,7 @@ namespace Loom
         {
             std::string Title;
             unsigned int Width, Height;
+            EventCallbackFn EventCallback;
         };
         WindowData m_Data;
     };

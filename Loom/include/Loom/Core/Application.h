@@ -1,5 +1,7 @@
 #pragma once
-#include "Window.h"
+
+#include "Loom/Core/Window.h"
+#include "Loom/Events/Event.h"
 
 namespace Loom
 {
@@ -10,6 +12,7 @@ namespace Loom
         virtual ~Application();
 
         void Run();
+        void OnEvent(const Event& e);
 
     private:
         std::unique_ptr<Window> m_Window;

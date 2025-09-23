@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "Loom/Core/Application.h"
 #include <iostream>
 
 namespace Loom
@@ -6,6 +6,7 @@ namespace Loom
     Application::Application()
     {
         m_Window = Window::Create();
+        m_Window->SetEventCallback([this](const Event& e) { OnEvent(e); });
     }
 
     Application::~Application() = default;
@@ -15,6 +16,14 @@ namespace Loom
         while (m_Running)
         {
             m_Window->OnUpdate();
+        }
+    }
+
+    void Application::OnEvent(const Event& e)
+    {
+        if (e.GetEventType() == EventType::WindowClose)
+        {
+            m_Running = false;
         }
     }
 } // namespace Loom

@@ -1,4 +1,5 @@
 #include "GLFWWindow.h"
+#include "Loom/Events/ApplicationEvent.h"
 #include <iostream>
 
 namespace Loom
@@ -40,6 +41,15 @@ namespace Loom
         }
 
         glfwMakeContextCurrent(m_Window);
+
+        glfwSetWindowUserPointer(m_Window, &m_Data);
+
+        glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+        {
+            const WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
+            WindowCloseEvent event;
+            data.EventCallback(event);
+        });
     }
 
     void GLFWWindow::Shutdown()
