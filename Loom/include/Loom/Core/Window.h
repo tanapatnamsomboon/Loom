@@ -37,6 +37,8 @@ namespace Loom
 
         virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
 
+        [[nodiscard]] virtual void* GetNativeWindow() const = 0;
+
         static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
     };
 } // namespace Loom

@@ -19,6 +19,9 @@ namespace Loom
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* layer);
 
+        static Application& Get() { return *s_Instance; }
+        [[nodiscard]] Window& GetWindow() const { return *m_Window; }
+
     private:
         bool OnWindowClose(WindowCloseEvent& e);
 
@@ -26,6 +29,9 @@ namespace Loom
         std::unique_ptr<Window> m_Window;
         bool m_Running = true;
         LayerStack m_LayerStack;
+
+    private:
+        static Application* s_Instance;
     };
 
     Application* CreateApplication();

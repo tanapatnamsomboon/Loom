@@ -16,7 +16,10 @@ public:
 private:
     bool OnKeyPressed(Loom::KeyPressedEvent& e)
     {
-        LOOM_INFO("{}", e.ToString());
+        if (Loom::Input::IsKeyPressed(Loom::Key::Space))
+        {
+            LOOM_INFO("Spacebar is pressed!");
+        }
         return true;
     }
 };

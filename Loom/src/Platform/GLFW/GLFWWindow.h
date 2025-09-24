@@ -18,6 +18,8 @@ namespace Loom
 
         void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 
+        [[nodiscard]] void* GetNativeWindow() const override { return m_Window; }
+
     private:
         void Init(const WindowProps& props);
         void Shutdown();

@@ -9,6 +9,12 @@ add_library(Loom STATIC
         include/Loom/Core/EntryPoint.h
         include/Loom/Core/Log.h
         src/Core/Log.cpp
+        include/Loom/Core/Input.h
+        src/Core/Input.cpp
+        include/Loom/Core/MouseCode.h
+        include/Loom/Core/KeyCode.h
+        src/Platform/GLFW/GLFWInput.cpp
+        src/Platform/GLFW/GLFWInput.h
 )
 
 target_include_directories(Loom
