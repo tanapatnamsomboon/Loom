@@ -1,5 +1,4 @@
 #include "Loom/Core/Application.h"
-#include <iostream>
 
 namespace Loom
 {

@@ -1,7 +1,6 @@
 #include <Loom/Core/Application.h>
 #include <Loom/Core/EntryPoint.h>
 #include <Loom/Events/KeyEvent.h>
-#include <print>
 
 class SandboxLayer final : public Loom::Layer
 {
@@ -17,7 +16,7 @@ public:
 private:
     bool OnKeyPressed(Loom::KeyPressedEvent& e)
     {
-        std::println("{}", e.ToString());
+        LOOM_INFO("{}", e.ToString());
         return true;
     }
 };

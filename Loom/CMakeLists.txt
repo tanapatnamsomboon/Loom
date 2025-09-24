@@ -7,6 +7,8 @@ add_library(Loom STATIC
         src/Core/LayerStack.cpp
         include/Loom/Core/Base.h
         include/Loom/Core/EntryPoint.h
+        include/Loom/Core/Log.h
+        src/Core/Log.cpp
 )
 
 target_include_directories(Loom
@@ -25,6 +27,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glfw)
 
-target_link_libraries(Loom PUBLIC glfw)
+FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog
+        GIT_TAG v1.15.3
+)
+FetchContent_MakeAvailable(spdlog)
+
+target_link_libraries(Loom
+        PUBLIC
+        glfw
+        spdlog::spdlog
+)
 
 target_compile_definitions(Loom PUBLIC LOOM_PLATFORM_GLFW)

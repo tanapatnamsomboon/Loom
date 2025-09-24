@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Loom/Core/Base.h"
 #include <string>
 #include <functional>
 
@@ -8,11 +9,11 @@ namespace Loom
     enum EventCategory
     {
         EventCategoryNone        = 0,
-        EventCategoryApplication = 1 << 0,
-        EventCategoryInput       = 1 << 1,
-        EventCategoryKeyboard    = 1 << 2,
-        EventCategoryMouse       = 1 << 3,
-        EventCategoryMouseButton = 1 << 4
+        EventCategoryApplication = BIT(0),
+        EventCategoryInput       = BIT(1),
+        EventCategoryKeyboard    = BIT(2),
+        EventCategoryMouse       = BIT(3),
+        EventCategoryMouseButton = BIT(4)
     };
 
     enum class EventType
