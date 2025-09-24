@@ -2,6 +2,8 @@
 #include "Loom/Events/ApplicationEvent.h"
 #include <iostream>
 
+#include "Loom/Events/KeyEvent.h"
+
 namespace Loom
 {
     static bool s_GLFWInitialized = false;
@@ -49,6 +51,22 @@ namespace Loom
             const WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
             WindowCloseEvent event;
             data.EventCallback(event);
+        });
+
+        glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+        {
+            const WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
+
+            if (action == GLFW_PRESS)
+            {
+                KeyPressedEvent event(key);
+                data.EventCallback(event);
+            }
+            else if (action == GLFW_RELEASE)
+            {
+                KeyReleasedEvent event(key);
+                data.EventCallback(event);
+            }
         });
     }
 

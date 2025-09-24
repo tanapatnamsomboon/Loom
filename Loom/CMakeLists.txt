@@ -2,6 +2,11 @@ add_library(Loom STATIC
         src/Core/Application.cpp
         src/Core/Window.cpp
         src/Platform/GLFW/GLFWWindow.cpp
+        include/Loom/Core/Layer.h
+        include/Loom/Core/LayerStack.h
+        src/Core/LayerStack.cpp
+        include/Loom/Core/Base.h
+        include/Loom/Core/EntryPoint.h
 )
 
 target_include_directories(Loom

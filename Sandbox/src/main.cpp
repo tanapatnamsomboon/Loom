@@ -1,19 +1,38 @@
-#include "Loom/Core/Application.h"
+#include <Loom/Core/Application.h>
+#include <Loom/Core/EntryPoint.h>
+#include <Loom/Events/KeyEvent.h>
 #include <print>
 
-class Sandbox final : public Loom::Application
+class SandboxLayer final : public Loom::Layer
 {
 public:
-    Sandbox()
+    ~SandboxLayer() override = default;
+
+    void OnEvent(Loom::Event& event) override
     {
-        std::println("Sandbox app created!");
+        Loom::EventDispatcher dispatcher(event);
+        dispatcher.Dispatch<Loom::KeyPressedEvent>(LOOM_BIND_EVENT_FN(OnKeyPressed));
+    }
+
+private:
+    bool OnKeyPressed(Loom::KeyPressedEvent& e)
+    {
+        std::println("{}", e.ToString());
+        return true;
     }
 };
 
-int main()
+class SandboxApp final : public Loom::Application
 {
-    Sandbox app;
-    app.Run();
+public:
+    SandboxApp()
+    {
+        PushLayer(new SandboxLayer());
+    }
+};
 
-    return 0;
+Loom::Application *Loom::CreateApplication()
+{
+    return new SandboxApp();
 }
+
