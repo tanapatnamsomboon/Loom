@@ -29,6 +29,7 @@ add_library(Loom STATIC
         include/Loom/Core/PlatformDetection.h
         include/Loom/ImGui/ImGuiLayer.h
         src/ImGui/ImGuiLayer.cpp
+        ../LoomEditor/src/EditorApp.cpp
 )
 
 target_include_directories(Loom
@@ -82,7 +83,7 @@ target_sources(Loom
 )
 
 target_include_directories(Loom
-        PRIVATE
+        PUBLIC
         ${imgui_SOURCE_DIR}
         ${imgui_SOURCE_DIR}/backends
 )

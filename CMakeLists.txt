@@ -12,3 +12,4 @@ endif ()
 
 add_subdirectory(Loom)
 add_subdirectory(Sandbox)
+add_subdirectory(LoomEditor)
