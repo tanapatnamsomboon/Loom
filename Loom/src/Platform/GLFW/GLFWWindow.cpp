@@ -43,7 +43,7 @@ namespace Loom
             nullptr, nullptr);
         if (!m_Window)
         {
-            std::cerr << "Failed to create GLFW window!" << std::endl;
+            LOOM_CORE_ASSERT(false, "Failed to create GLFW window!");
             return;
         }
         glfwMakeContextCurrent(m_Window);

@@ -25,6 +25,8 @@ add_library(Loom STATIC
         src/Platform/OpenGL/OpenGLContext.h
         src/Platform/OpenGL/OpenGLContext.cpp
         include/Loom/Core/Assert.h
+        include/Loom/Core/DebugBreak.h
+        include/Loom/Core/PlatformDetection.h
 )
 
 target_include_directories(Loom
@@ -69,6 +71,8 @@ target_link_libraries(Loom
 
 target_compile_definitions(Loom PUBLIC LOOM_PLATFORM_GLFW)
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_definitions(Loom PUBLIC LOOM_ENABLE_ASSERTS)
-endif ()
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(Loom PUBLIC LOOM_DEBUG)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_definitions(Loom PUBLIC LOOM_RELEASE)
+endif()

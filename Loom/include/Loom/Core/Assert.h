@@ -1,12 +1,15 @@
 #pragma once
 
+#include "Loom/Core/Log.h"
+#include "Loom/Core/DebugBreak.h"
+
 #ifdef LOOM_ENABLE_ASSERTS
 #   define LOOM_INTERNAL_ASSERT_IMPL(type, check, msg, ...)                 \
     {                                                                       \
         if(!(check))                                                        \
         {                                                                   \
-            LOOM_CORE_##type("Assertion Failed: {0}", msg);                 \
-            __debugbreak();                                                 \
+            LOOM_##type("Assertion Failed: {0}", msg);                      \
+            LOOM_DEBUGBREAK();                                              \
         }                                                                   \
     }
 #   define LOOM_INTERNAL_ASSERT_WITH_MSG(type, check, ...)                  \
@@ -19,9 +22,9 @@
                                             LOOM_INTERNAL_ASSERT_WITH_MSG,  \
                                             LOOM_INTERNAL_ASSERT_NO_MSG)
 #   define LOOM_CORE_ASSERT(...)                                            \
-        LOOM_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_CORE_ERROR, __VA_ARGS__)
+        LOOM_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(CORE_ERROR, __VA_ARGS__)
 #   define LOOM_ASSERT(...)                                                 \
-        LOOM_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_ERROR, __VA_ARGS__)
+        LOOM_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(ERROR, __VA_ARGS__)
 #else
 #   define LOOM_CORE_ASSERT(...)
 #   define LOOM_ASSERT(...)
