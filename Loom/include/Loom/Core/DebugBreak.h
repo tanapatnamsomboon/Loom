@@ -22,6 +22,7 @@
 #       include <signal.h>
 #       define LOOM_DEBUGBREAK() raise(SIGTRAP)
 #   endif
+#   define LOOM_ENABLE_ASSERTS
 #else
 #   define LOOM_DEBUGBREAK()
 #endif

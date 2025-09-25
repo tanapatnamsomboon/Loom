@@ -2,6 +2,7 @@
 #include <Loom/Core/EntryPoint.h>
 #include <Loom/Events/KeyEvent.h>
 
+#include "../../build/release/_deps/imgui-src/imgui.h"
 #include "Loom/Renderer/RenderCommand.h"
 
 class SandboxLayer final : public Loom::Layer
@@ -13,6 +14,13 @@ public:
     {
         Loom::RenderCommand::SetClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         Loom::RenderCommand::Clear();
+    }
+
+    void OnImGuiRender() override
+    {
+        ImGui::Begin("Hello, Loom!");
+        ImGui::Text("This is a test window.");
+        ImGui::End();
     }
 
     void OnEvent(Loom::Event& event) override

@@ -4,6 +4,7 @@
 #include "Loom/Core/Window.h"
 #include "Loom/Core/LayerStack.h"
 #include "Loom/Events/ApplicationEvent.h"
+#include "Loom/ImGui/ImGuiLayer.h"
 
 namespace Loom
 {
@@ -29,6 +30,7 @@ namespace Loom
         std::unique_ptr<Window> m_Window;
         bool m_Running = true;
         LayerStack m_LayerStack;
+        ImGuiLayer* m_ImGuiLayer;
 
     private:
         static Application* s_Instance;

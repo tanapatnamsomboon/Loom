@@ -27,6 +27,8 @@ add_library(Loom STATIC
         include/Loom/Core/Assert.h
         include/Loom/Core/DebugBreak.h
         include/Loom/Core/PlatformDetection.h
+        include/Loom/ImGui/ImGuiLayer.h
+        src/ImGui/ImGuiLayer.cpp
 )
 
 target_include_directories(Loom
@@ -61,6 +63,29 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glad)
 glad_add_library(glad_gl_core_46 STATIC REPRODUCIBLE LOADER API gl:core=4.6)
+
+FetchContent_Declare(
+        imgui
+        GIT_REPOSITORY https://github.com/ocornut/imgui.git
+        GIT_TAG        v1.92.3-docking
+)
+FetchContent_MakeAvailable(imgui)
+
+target_sources(Loom
+        PRIVATE
+        ${imgui_SOURCE_DIR}/imgui.cpp
+        ${imgui_SOURCE_DIR}/imgui_draw.cpp
+        ${imgui_SOURCE_DIR}/imgui_tables.cpp
+        ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+        ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+)
+
+target_include_directories(Loom
+        PRIVATE
+        ${imgui_SOURCE_DIR}
+        ${imgui_SOURCE_DIR}/backends
+)
 
 target_link_libraries(Loom
         PUBLIC
