@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Loom/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;

@@ -14,3 +14,4 @@ namespace Loom
 } // namespace Loom
 
 #include "Loom/Core/Log.h"
+#include "Loom/Core/Assert.h"

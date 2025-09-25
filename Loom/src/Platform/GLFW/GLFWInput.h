@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Loom/Core/Input.h"
 
 namespace Loom

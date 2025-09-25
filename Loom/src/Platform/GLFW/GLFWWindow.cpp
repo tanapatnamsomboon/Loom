@@ -1,7 +1,8 @@
 #include "Platform/GLFW/GLFWWindow.h"
+
+#include "Loom/Core/Assert.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 #include "Loom/Events/ApplicationEvent.h"
-#include <iostream>
 
 #include "Loom/Events/KeyEvent.h"
 
@@ -29,7 +30,7 @@ namespace Loom
         {
             if (!glfwInit())
             {
-                std::cerr << "Failed to initialize GLFW!" << std::endl;
+                LOOM_CORE_ASSERT(false, "Failed to initialize GLFW!");
                 return;
             }
             s_GLFWInitialized = true;

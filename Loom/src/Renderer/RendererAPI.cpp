@@ -1,5 +1,4 @@
 #include "Loom/Renderer/RendererAPI.h"
-#include "Loom/Renderer/RendererAPI.h"
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
 namespace Loom
