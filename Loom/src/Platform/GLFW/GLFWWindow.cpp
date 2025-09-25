@@ -1,4 +1,5 @@
-#include "GLFWWindow.h"
+#include "Platform/GLFW/GLFWWindow.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 #include "Loom/Events/ApplicationEvent.h"
 #include <iostream>
 
@@ -34,17 +35,21 @@ namespace Loom
             s_GLFWInitialized = true;
         }
 
-        m_Window = glfwCreateWindow(static_cast<int>(props.Width), static_cast<int>(props.Height), m_Data.Title.c_str(),
-                                    nullptr, nullptr);
+        m_Window = glfwCreateWindow(
+            static_cast<int>(props.Width),
+            static_cast<int>(props.Height),
+            m_Data.Title.c_str(),
+            nullptr, nullptr);
         if (!m_Window)
         {
             std::cerr << "Failed to create GLFW window!" << std::endl;
             return;
         }
-
         glfwMakeContextCurrent(m_Window);
-
         glfwSetWindowUserPointer(m_Window, &m_Data);
+
+        m_Context = std::make_unique<OpenGLContext>(m_Window);
+        m_Context->Init();
 
         glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
         {

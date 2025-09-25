@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Loom/Core/Window.h"
+#include "Loom/Renderer/GraphicsContext.h"
 #include <GLFW/glfw3.h>
 
 namespace Loom
@@ -25,7 +26,8 @@ namespace Loom
         void Shutdown();
 
     private:
-        GLFWwindow *m_Window = nullptr;
+        GLFWwindow* m_Window = nullptr;
+        std::unique_ptr<GraphicsContext> m_Context;
 
         struct WindowData
         {

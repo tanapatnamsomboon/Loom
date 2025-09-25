@@ -15,6 +15,15 @@ add_library(Loom STATIC
         include/Loom/Core/KeyCode.h
         src/Platform/GLFW/GLFWInput.cpp
         src/Platform/GLFW/GLFWInput.h
+        include/Loom/Renderer/RendererAPI.h
+        include/Loom/Renderer/RenderCommand.h
+        include/Loom/Renderer/GraphicsContext.h
+        src/Renderer/RendererAPI.cpp
+        src/Platform/OpenGL/OpenGLRendererAPI.h
+        src/Platform/OpenGL/OpenGLRendererAPI.cpp
+        src/Renderer/RenderCommand.cpp
+        src/Platform/OpenGL/OpenGLContext.h
+        src/Platform/OpenGL/OpenGLContext.cpp
 )
 
 target_include_directories(Loom
@@ -40,10 +49,21 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+FetchContent_Declare(
+        glad
+        GIT_REPOSITORY https://github.com/Dav1dde/glad.git
+        GIT_TAG        v2.0.8
+        GIT_PROGRESS   TRUE
+        SOURCE_SUBDIR  cmake
+)
+FetchContent_MakeAvailable(glad)
+glad_add_library(glad_gl_core_46 STATIC REPRODUCIBLE LOADER API gl:core=4.6)
+
 target_link_libraries(Loom
         PUBLIC
         glfw
         spdlog::spdlog
+        glad_gl_core_46
 )
 
 target_compile_definitions(Loom PUBLIC LOOM_PLATFORM_GLFW)

@@ -1,4 +1,4 @@
-#include "GLFWInput.h"
+#include "Platform/GLFW/GLFWInput.h"
 #include "Loom/Core/Input.h"
 #include "Loom/Core/Application.h"
 #include "Loom/Core/Window.h"

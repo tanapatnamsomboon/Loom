@@ -2,10 +2,18 @@
 #include <Loom/Core/EntryPoint.h>
 #include <Loom/Events/KeyEvent.h>
 
+#include "Loom/Renderer/RenderCommand.h"
+
 class SandboxLayer final : public Loom::Layer
 {
 public:
     ~SandboxLayer() override = default;
+
+    void OnUpdate() override
+    {
+        Loom::RenderCommand::SetClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        Loom::RenderCommand::Clear();
+    }
 
     void OnEvent(Loom::Event& event) override
     {
