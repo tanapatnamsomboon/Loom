@@ -27,7 +27,7 @@ namespace Loom
 
     private:
         GLFWwindow* m_Window = nullptr;
-        std::unique_ptr<GraphicsContext> m_Context;
+        Scope<GraphicsContext> m_Context;
 
         struct WindowData
         {

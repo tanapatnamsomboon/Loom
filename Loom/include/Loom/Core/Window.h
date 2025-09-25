@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory>
+#include "Loom/Core/Base.h"
 #include <string>
 #include <functional>
 #include <utility>
@@ -39,6 +39,6 @@ namespace Loom
 
         [[nodiscard]] virtual void* GetNativeWindow() const = 0;
 
-        static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
+        static Scope<Window> Create(const WindowProps& props = WindowProps());
     };
 } // namespace Loom
