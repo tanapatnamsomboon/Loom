@@ -23,6 +23,8 @@ namespace Loom
         static Application& Get() { return *s_Instance; }
         [[nodiscard]] Window& GetWindow() const { return *m_Window; }
 
+        void Close();
+
     private:
         bool OnWindowClose(WindowCloseEvent& e);
 

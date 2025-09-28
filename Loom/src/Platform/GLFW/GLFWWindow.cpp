@@ -36,6 +36,8 @@ namespace Loom
             s_GLFWInitialized = true;
         }
 
+        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+
         m_Window = glfwCreateWindow(
             static_cast<int>(props.Width),
             static_cast<int>(props.Height),

@@ -1,16 +1,105 @@
 #include "EditorLayer.h"
 #include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
 
 EditorLayer::EditorLayer()
     : Layer("EditorLayer")
 {
 }
 
+void EditorLayer::OnAttach()
+{
+    ImGuiIO& io = ImGui::GetIO();
+
+    io.Fonts->Clear();
+
+    io.Fonts->AddFontFromFileTTF("assets/fonts/Fredoka/Fredoka.ttf");
+    // io.Fonts->AddFontFromFileTTF("assets/fonts/Inter-Regular.ttf");
+    // io.Fonts->AddFontFromFileTTF("assets/fonts/Sarabun-Regular.ttf");
+}
+
+void EditorLayer::OnDetach()
+{
+}
+
+void EditorLayer::OnUpdate()
+{
+}
+
 void EditorLayer::OnImGuiRender()
 {
-    ImGui::Begin("Loom Editor");
-    ImGui::Text("Welcome to Loom Editor!");
-    static float value = 0.0f;
-    ImGui::SliderFloat("Value", &value, 0.0f, 1.0f);
+    DockspaceUI();
+
+    ImGui::Begin("Scene Hierarchy");
+    ImGui::Text("Entities will show up here.");
+    ImGui::End();
+
+    ImGui::Begin("Inspector");
+    ImGui::Text("Details for selected entity.");
+    ImGui::End();
+
+    ImGui::Begin("Console");
+    ImGui::Text("Logs will appear here.");
+    ImGui::End();
+
+    ImGui::Begin("Viewport");
+    ImGui::Text("Render output here.");
+    ImGui::End();
+}
+
+void EditorLayer::DockspaceUI()
+{
+    static bool dockspaceOpen = true;
+    static bool opt_fullscreen = true;
+    static bool opt_padding = false;
+    static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+    if (opt_fullscreen)
+    {
+        const ImGuiViewport* viewport = ImGui::GetMainViewport();
+        ImGui::SetNextWindowPos(viewport->Pos);
+        ImGui::SetNextWindowSize(viewport->Size);
+        ImGui::SetNextWindowViewport(viewport->ID);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+        window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+        window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+    }
+
+    if (!opt_padding)
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+    ImGui::Begin("Dockspace Demo", &dockspaceOpen, window_flags);
+
+    if (!opt_padding)
+        ImGui::PopStyleVar();
+
+    if (opt_fullscreen)
+        ImGui::PopStyleVar(2);
+
+    // Dockspace
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+    {
+        ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
+        ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+    }
+
+    // Menu bar example
+    if (ImGui::BeginMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("Exit"))
+            {
+                Loom::Application::Get().Close();
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenuBar();
+    }
+
     ImGui::End();
 }
