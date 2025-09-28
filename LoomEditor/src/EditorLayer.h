@@ -1,7 +1,6 @@
 #pragma once
 
-#include <Loom/Core/Layer.h>
-#include <Loom/Core/Application.h>
+#include <Loom/Loom.h>
 
 class EditorLayer final : public Loom::Layer
 {

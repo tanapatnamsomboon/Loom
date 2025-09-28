@@ -1,6 +1,5 @@
-#include <Loom/Core/Application.h>
-#include <Loom/Core/EntryPoint.h>
-#include <Loom/Core/Log.h>
+#define LOOM_INCLUDE_ENTRYPOINT
+#include <Loom/Loom.h>
 #include "EditorLayer.h"
 
 class EditorApp final : public Loom::Application
@@ -17,4 +16,3 @@ Loom::Application *Loom::CreateApplication()
 {
     return new EditorApp();
 }
-
