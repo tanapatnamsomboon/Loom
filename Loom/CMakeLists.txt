@@ -29,7 +29,6 @@ add_library(Loom STATIC
         include/Loom/Core/PlatformDetection.h
         include/Loom/ImGui/ImGuiLayer.h
         src/ImGui/ImGuiLayer.cpp
-        ../LoomEditor/src/EditorApp.cpp
 )
 
 target_include_directories(Loom
@@ -58,9 +57,9 @@ FetchContent_MakeAvailable(spdlog)
 FetchContent_Declare(
         glad
         GIT_REPOSITORY https://github.com/Dav1dde/glad.git
-        GIT_TAG        v2.0.8
-        GIT_PROGRESS   TRUE
-        SOURCE_SUBDIR  cmake
+        GIT_TAG v2.0.8
+        GIT_PROGRESS TRUE
+        SOURCE_SUBDIR cmake
 )
 FetchContent_MakeAvailable(glad)
 glad_add_library(glad_gl_core_46 STATIC REPRODUCIBLE LOADER API gl:core=4.6)
@@ -68,7 +67,7 @@ glad_add_library(glad_gl_core_46 STATIC REPRODUCIBLE LOADER API gl:core=4.6)
 FetchContent_Declare(
         imgui
         GIT_REPOSITORY https://github.com/ocornut/imgui.git
-        GIT_TAG        v1.92.3-docking
+        GIT_TAG v1.92.3-docking
 )
 FetchContent_MakeAvailable(imgui)
 
@@ -95,10 +94,23 @@ target_link_libraries(Loom
         glad_gl_core_46
 )
 
+if (UNIX AND NOT APPLE)
+    find_package(X11 REQUIRED)
+    target_link_libraries(Loom
+            PUBLIC
+            ${X11_X11_LIB}
+            ${X11_Xrandr_LIB}
+            ${X11_Xi_LIB}
+            ${X11_Xxf86vm_LIB}
+            ${X11_Xcursor_LIB}
+            pthread
+    )
+endif ()
+
 target_compile_definitions(Loom PUBLIC LOOM_PLATFORM_GLFW)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Loom PUBLIC LOOM_DEBUG)
-elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+elseif (CMAKE_BUILD_TYPE STREQUAL "Release")
     target_compile_definitions(Loom PUBLIC LOOM_RELEASE)
-endif()
+endif ()
