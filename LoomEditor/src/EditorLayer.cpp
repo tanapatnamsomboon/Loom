@@ -55,7 +55,8 @@ void EditorLayer::OnImGuiRender()
 
     ImGui::Begin("Viewport");
     uint32_t texID = m_Framebuffer->GetColorAttachmentRendererID();
-    ImGui::Image((void*)(intptr_t)texID, ImVec2(1900, 600), ImVec2(0, 1), ImVec2(1, 0));
+    ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+    ImGui::Image((void*)(intptr_t)texID, viewportPanelSize, ImVec2(0, 1), ImVec2(1, 0));
     ImGui::End();
 }
 
