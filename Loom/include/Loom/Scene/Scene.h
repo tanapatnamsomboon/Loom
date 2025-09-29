@@ -3,6 +3,8 @@
 #include "Loom/Core/Base.h"
 #include <entt/entt.hpp>
 
+class SceneHierarchyPanel;
+
 namespace Loom
 {
     class Entity;
@@ -22,5 +24,6 @@ namespace Loom
         entt::registry m_Registry;
 
         friend class Entity;
+        friend class ::SceneHierarchyPanel;
     };
 } // namespace Loom

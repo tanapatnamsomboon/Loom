@@ -20,9 +20,11 @@ void EditorLayer::OnAttach()
     m_Framebuffer = Loom::Framebuffer::Create(spec);
 
     m_Scene = Loom::CreateRef<Loom::Scene>();
-    auto entity = m_Scene->CreateEntity("Camera");
-    auto& transform = entity.GetComponent<Loom::TransformComponent>();
-    transform.Translation = {0.0f, 0.0f, -5.0f};
+    auto entityA = m_Scene->CreateEntity("Camera");
+    auto entityB = m_Scene->CreateEntity("Light");
+    auto entityC = m_Scene->CreateEntity("Player");
+
+    m_SceneHierarchyPanel.SetContext(m_Scene);
 }
 
 void EditorLayer::OnDetach()
@@ -45,20 +47,15 @@ void EditorLayer::OnImGuiRender()
 {
     DockspaceUI();
 
-    ImGui::Begin("Scene Hierarchy");
-    ImGui::Text("Entities will show up here.");
-    ImGui::End();
-
-    ImGui::Begin("Inspector");
-    ImGui::Text("Details for selected entity.");
-    ImGui::End();
+    m_SceneHierarchyPanel.OnImGuiRender();
 
     ImGui::Begin("Console");
     ImGui::Text("Logs will appear here.");
     ImGui::End();
 
     ImGui::Begin("Viewport");
-    ImGui::Text("Render output here.");
+    uint32_t texID = m_Framebuffer->GetColorAttachmentRendererID();
+    ImGui::Image((void*)(intptr_t)texID, ImVec2(1900, 600), ImVec2(0, 1), ImVec2(1, 0));
     ImGui::End();
 }
 

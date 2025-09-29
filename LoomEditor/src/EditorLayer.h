@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Loom/Loom.h>
+#include "Panels/SceneHierarchyPanel.h"
 
 class EditorLayer final : public Loom::Layer
 {
@@ -19,4 +20,6 @@ private:
 private:
     Loom::Ref<Loom::Framebuffer> m_Framebuffer;
     Loom::Ref<Loom::Scene> m_Scene;
+
+    SceneHierarchyPanel m_SceneHierarchyPanel;
 };
