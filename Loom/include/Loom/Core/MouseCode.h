@@ -18,5 +18,5 @@ namespace Loom
         constexpr MouseCode Left    = Button0;
         constexpr MouseCode Right   = Button1;
         constexpr MouseCode Middle  = Button2;
-    }
+    } // namespace Mouse
 } // namespace Loom

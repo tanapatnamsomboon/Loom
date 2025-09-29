@@ -1,34 +1,38 @@
 add_library(Loom STATIC
-        src/Core/Application.cpp
-        src/Core/Window.cpp
-        src/Platform/GLFW/GLFWWindow.cpp
+        include/Loom/Core/Assert.h
+        include/Loom/Core/Base.h
+        include/Loom/Core/DebugBreak.h
+        include/Loom/Core/EntryPoint.h
+        include/Loom/Core/Input.h
+        include/Loom/Core/KeyCode.h
         include/Loom/Core/Layer.h
         include/Loom/Core/LayerStack.h
-        src/Core/LayerStack.cpp
-        include/Loom/Core/Base.h
-        include/Loom/Core/EntryPoint.h
         include/Loom/Core/Log.h
-        src/Core/Log.cpp
-        include/Loom/Core/Input.h
-        src/Core/Input.cpp
         include/Loom/Core/MouseCode.h
-        include/Loom/Core/KeyCode.h
-        src/Platform/GLFW/GLFWInput.cpp
-        src/Platform/GLFW/GLFWInput.h
-        include/Loom/Renderer/RendererAPI.h
-        include/Loom/Renderer/RenderCommand.h
-        include/Loom/Renderer/GraphicsContext.h
-        src/Renderer/RendererAPI.cpp
-        src/Platform/OpenGL/OpenGLRendererAPI.h
-        src/Platform/OpenGL/OpenGLRendererAPI.cpp
-        src/Renderer/RenderCommand.cpp
-        src/Platform/OpenGL/OpenGLContext.h
-        src/Platform/OpenGL/OpenGLContext.cpp
-        include/Loom/Core/Assert.h
-        include/Loom/Core/DebugBreak.h
         include/Loom/Core/PlatformDetection.h
         include/Loom/ImGui/ImGuiLayer.h
+        include/Loom/Renderer/GraphicsContext.h
+        include/Loom/Renderer/RenderCommand.h
+        include/Loom/Renderer/RendererAPI.h
+        include/Loom/Renderer/Framebuffer.h
+        src/Core/Application.cpp
+        src/Core/Input.cpp
+        src/Core/LayerStack.cpp
+        src/Core/Log.cpp
+        src/Core/Window.cpp
         src/ImGui/ImGuiLayer.cpp
+        src/Platform/GLFW/GLFWInput.cpp
+        src/Platform/GLFW/GLFWInput.h
+        src/Platform/GLFW/GLFWWindow.cpp
+        src/Platform/OpenGL/OpenGLContext.cpp
+        src/Platform/OpenGL/OpenGLContext.h
+        src/Platform/OpenGL/OpenGLRendererAPI.cpp
+        src/Platform/OpenGL/OpenGLRendererAPI.h
+        src/Platform/OpenGL/OpenGLFramebuffer.cpp
+        src/Platform/OpenGL/OpenGLFramebuffer.h
+        src/Renderer/RenderCommand.cpp
+        src/Renderer/RendererAPI.cpp
+        src/Renderer/Framebuffer.cpp
 )
 
 target_include_directories(Loom

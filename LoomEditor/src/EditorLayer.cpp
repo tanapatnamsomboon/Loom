@@ -15,6 +15,9 @@ void EditorLayer::OnAttach()
     io.Fonts->AddFontFromFileTTF("assets/fonts/Fredoka/Fredoka.ttf");
     // io.Fonts->AddFontFromFileTTF("assets/fonts/Inter-Regular.ttf");
     // io.Fonts->AddFontFromFileTTF("assets/fonts/Sarabun-Regular.ttf");
+
+    Loom::FramebufferSpecification spec = { 1900, 600 };
+    m_Framebuffer = Loom::Framebuffer::Create(spec);
 }
 
 void EditorLayer::OnDetach()
@@ -23,6 +26,12 @@ void EditorLayer::OnDetach()
 
 void EditorLayer::OnUpdate()
 {
+    m_Framebuffer->Bind();
+
+    Loom::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    Loom::RenderCommand::Clear();
+
+    m_Framebuffer->Unbind();
 }
 
 void EditorLayer::OnImGuiRender()

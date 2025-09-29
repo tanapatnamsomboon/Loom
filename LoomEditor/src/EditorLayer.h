@@ -15,4 +15,7 @@ public:
 
 private:
     void DockspaceUI();
+
+private:
+    Loom::Ref<Loom::Framebuffer> m_Framebuffer;
 };

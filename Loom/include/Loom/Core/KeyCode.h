@@ -54,5 +54,5 @@ namespace Loom
         constexpr KeyCode Right = 262;
         constexpr KeyCode Up    = 265;
         constexpr KeyCode Down  = 264;
-    }
+    } // namespace Key
 } // namespace Loom
