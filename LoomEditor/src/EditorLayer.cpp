@@ -18,6 +18,11 @@ void EditorLayer::OnAttach()
 
     Loom::FramebufferSpecification spec = { 1900, 600 };
     m_Framebuffer = Loom::Framebuffer::Create(spec);
+
+    m_Scene = Loom::CreateRef<Loom::Scene>();
+    auto entity = m_Scene->CreateEntity("Camera");
+    auto& transform = entity.GetComponent<Loom::TransformComponent>();
+    transform.Translation = {0.0f, 0.0f, -5.0f};
 }
 
 void EditorLayer::OnDetach()
@@ -30,6 +35,8 @@ void EditorLayer::OnUpdate()
 
     Loom::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Loom::RenderCommand::Clear();
+
+    m_Scene->OnUpdate();
 
     m_Framebuffer->Unbind();
 }

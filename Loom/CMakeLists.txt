@@ -15,6 +15,9 @@ add_library(Loom STATIC
         include/Loom/Renderer/RenderCommand.h
         include/Loom/Renderer/RendererAPI.h
         include/Loom/Renderer/Framebuffer.h
+        include/Loom/Scene/Component.h
+        include/Loom/Scene/Entity.h
+        include/Loom/Scene/Scene.h
         src/Core/Application.cpp
         src/Core/Input.cpp
         src/Core/LayerStack.cpp
@@ -33,6 +36,7 @@ add_library(Loom STATIC
         src/Renderer/RenderCommand.cpp
         src/Renderer/RendererAPI.cpp
         src/Renderer/Framebuffer.cpp
+        src/Scene/Scene.cpp
 )
 
 target_include_directories(Loom
@@ -75,6 +79,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(imgui)
 
+FetchContent_Declare(
+        entt
+        GIT_REPOSITORY https://github.com/skypjack/entt.git
+        GIT_TAG v3.15.0
+)
+FetchContent_MakeAvailable(entt)
+
 target_sources(Loom
         PRIVATE
         ${imgui_SOURCE_DIR}/imgui.cpp
@@ -96,6 +107,7 @@ target_link_libraries(Loom
         glfw
         spdlog::spdlog
         glad_gl_core_46
+        EnTT::EnTT
 )
 
 if (UNIX AND NOT APPLE)

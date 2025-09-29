@@ -24,6 +24,11 @@
 #include "Loom/Renderer/GraphicsContext.h"
 #include "Loom/Renderer/Framebuffer.h"
 
+// Scene
+#include "Loom/Scene/Scene.h"
+#include "Loom/Scene/Entity.h"
+#include "Loom/Scene/Component.h"
+
 // Entry Point
 #ifdef LOOM_INCLUDE_ENTRYPOINT
 #   include "Loom/Core/EntryPoint.h"

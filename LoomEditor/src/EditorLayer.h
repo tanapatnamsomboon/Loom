@@ -18,4 +18,5 @@ private:
 
 private:
     Loom::Ref<Loom::Framebuffer> m_Framebuffer;
+    Loom::Ref<Loom::Scene> m_Scene;
 };
