@@ -15,6 +15,10 @@ add_library(Loom STATIC
         include/Loom/Renderer/RenderCommand.h
         include/Loom/Renderer/RendererAPI.h
         include/Loom/Renderer/Framebuffer.h
+        include/Loom/Renderer/Shader.h
+        include/Loom/Renderer/Buffer.h
+        include/Loom/Renderer/VertexArray.h
+        include/Loom/Renderer/Renderer.h
         include/Loom/Scene/Component.h
         include/Loom/Scene/Entity.h
         include/Loom/Scene/Scene.h
@@ -27,16 +31,26 @@ add_library(Loom STATIC
         src/Platform/GLFW/GLFWInput.cpp
         src/Platform/GLFW/GLFWInput.h
         src/Platform/GLFW/GLFWWindow.cpp
+        src/Platform/OpenGL/OpenGLBuffer.h
+        src/Platform/OpenGL/OpenGLBuffer.cpp
         src/Platform/OpenGL/OpenGLContext.cpp
         src/Platform/OpenGL/OpenGLContext.h
         src/Platform/OpenGL/OpenGLRendererAPI.cpp
         src/Platform/OpenGL/OpenGLRendererAPI.h
         src/Platform/OpenGL/OpenGLFramebuffer.cpp
         src/Platform/OpenGL/OpenGLFramebuffer.h
+        src/Platform/OpenGL/OpenGLShader.h
+        src/Platform/OpenGL/OpenGLShader.cpp
+        src/Platform/OpenGL/OpenGLVertexArray.h
+        src/Platform/OpenGL/OpenGLVertexArray.cpp
         src/Renderer/RenderCommand.cpp
+        src/Renderer/Renderer.cpp
         src/Renderer/RendererAPI.cpp
         src/Renderer/Framebuffer.cpp
         src/Scene/Scene.cpp
+        src/Renderer/VertexArray.cpp
+        src/Renderer/Shader.cpp
+        src/Renderer/Buffer.cpp
 )
 
 target_include_directories(Loom
@@ -71,6 +85,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glad)
 glad_add_library(glad_gl_core_46 STATIC REPRODUCIBLE LOADER API gl:core=4.6)
+
+FetchContent_Declare(
+        glm
+        GIT_REPOSITORY https://github.com/g-truc/glm
+        GIT_TAG 1.0.1
+)
+FetchContent_MakeAvailable(glm)
 
 FetchContent_Declare(
         imgui
@@ -108,6 +129,7 @@ target_link_libraries(Loom
         spdlog::spdlog
         glad_gl_core_46
         EnTT::EnTT
+        glm::glm
 )
 
 if (UNIX AND NOT APPLE)

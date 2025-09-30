@@ -19,6 +19,41 @@ void EditorLayer::OnAttach()
     Loom::FramebufferSpecification spec = { 1900, 600 };
     m_Framebuffer = Loom::Framebuffer::Create(spec);
 
+    float vertices[3 * 3] = {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f
+    };
+
+    uint32_t indices[3] = { 0, 1, 2 };
+
+    m_VertexArray = Loom::VertexArray::Create();
+    auto vb = Loom::VertexBuffer::Create(vertices, sizeof(vertices));
+    m_VertexArray->AddVertexBuffer(vb);
+
+    auto ib = Loom::IndexBuffer::Create(indices, 3);
+    m_VertexArray->SetIndexBuffer(ib);
+
+    std::string vertexSrc = R"(
+        #version 460 core
+        layout(location = 0) in vec3 aPosition;
+        void main()
+        {
+            gl_Position = vec4(a_Position, 1.0);
+        }
+    )";
+
+    std::string fragmentSrc = R"(
+        #version 460 core
+        out vec4 FragColor;
+        void main()
+        {
+            FragColor = vec4(0.2, 0.7, 0.3, 1.0);
+        }
+    )";
+
+    m_Shader = Loom::Shader::Create(vertexSrc, fragmentSrc);
+
     m_Scene = Loom::CreateRef<Loom::Scene>();
     auto entityA = m_Scene->CreateEntity("Camera");
     auto entityB = m_Scene->CreateEntity("Light");
@@ -37,6 +72,10 @@ void EditorLayer::OnUpdate()
 
     Loom::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Loom::RenderCommand::Clear();
+
+    Loom::Renderer::BeginScene();
+    Loom::Renderer::Submit(m_Shader, m_VertexArray);
+    Loom::Renderer::EndScene();
 
     m_Scene->OnUpdate();
 

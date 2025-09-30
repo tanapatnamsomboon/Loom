@@ -23,6 +23,9 @@
 #include "Loom/Renderer/RenderCommand.h"
 #include "Loom/Renderer/GraphicsContext.h"
 #include "Loom/Renderer/Framebuffer.h"
+#include "Loom/Renderer/VertexArray.h"
+#include "Loom/Renderer/Shader.h"
+#include "Loom/Renderer/Renderer.h"
 
 // Scene
 #include "Loom/Scene/Scene.h"

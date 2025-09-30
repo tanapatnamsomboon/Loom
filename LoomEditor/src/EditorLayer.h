@@ -22,4 +22,7 @@ private:
     Loom::Ref<Loom::Scene> m_Scene;
 
     SceneHierarchyPanel m_SceneHierarchyPanel;
+
+    Loom::Ref<Loom::VertexArray> m_VertexArray;
+    Loom::Ref<Loom::Shader> m_Shader;
 };

@@ -9,5 +9,7 @@ namespace Loom
     public:
         void SetClearColor(float r, float g, float b, float a) override;
         void Clear() override;
+
+        void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount) override;
     };
 } // namespace Loom
