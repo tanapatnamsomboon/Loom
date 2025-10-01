@@ -1,4 +1,7 @@
 #include "Loom/Core/Application.h"
+#include "Loom/Core/Timestep.h"
+#include "Loom/Renderer/RenderCommand.h"
+#include <GLFW/glfw3.h>
 
 namespace Loom
 {
@@ -20,10 +23,16 @@ namespace Loom
 
     void Application::Run()
     {
+        float lastFrameTime = 0.0f;
+
         while (m_Running)
         {
+            float time = glfwGetTime(); // TODO: Use platform::GetTime() instead
+            Timestep timestep = time - lastFrameTime;
+            lastFrameTime = time;
+
             for (Layer* layer : m_LayerStack)
-                layer->OnUpdate();
+                layer->OnUpdate(timestep);
 
             m_ImGuiLayer->Begin();
             for (Layer* layer : m_LayerStack)
@@ -38,6 +47,7 @@ namespace Loom
     {
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(LOOM_BIND_EVENT_FN(OnWindowClose));
+        dispatcher.Dispatch<WindowResizeEvent>(LOOM_BIND_EVENT_FN(OnWindowResize));
 
         for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
         {
@@ -62,6 +72,22 @@ namespace Loom
     void Application::Close()
     {
         m_Running = false;
+    }
+
+    bool Application::OnWindowResize(WindowResizeEvent& e)
+    {
+        int width = e.GetWidth();
+        int height = e.GetHeight();
+
+        if (width == 0 || height == 0)
+        {
+            m_Minimize = true;
+            return false;
+        }
+        m_Minimize = false;
+
+        RenderCommand::SetViewport(0, 0, width, height);
+        return false;
     }
 
     bool Application::OnWindowClose(WindowCloseEvent& e)

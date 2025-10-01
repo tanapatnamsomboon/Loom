@@ -29,4 +29,10 @@ namespace Loom
         {
         }
     };
+
+    struct CameraComponent
+    {
+        CameraComponent() = default;
+        CameraComponent(const CameraComponent&) = default;
+    };
 } // namespace Loom

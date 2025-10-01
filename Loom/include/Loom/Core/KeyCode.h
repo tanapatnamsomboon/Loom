@@ -54,5 +54,15 @@ namespace Loom
         constexpr KeyCode Right = 262;
         constexpr KeyCode Up    = 265;
         constexpr KeyCode Down  = 264;
+
+        constexpr KeyCode LShift   = 340;
+        constexpr KeyCode RShift   = 344;
+        constexpr KeyCode LControl = 341;
+        constexpr KeyCode RControl = 345;
+        constexpr KeyCode LAlt     = 342;
+        constexpr KeyCode RAlt     = 346;
+
+        constexpr KeyCode Menu = 348;
+        constexpr KeyCode Last = Menu;
     } // namespace Key
 } // namespace Loom

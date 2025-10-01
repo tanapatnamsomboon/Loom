@@ -34,25 +34,7 @@ void EditorLayer::OnAttach()
     auto ib = Loom::IndexBuffer::Create(indices, 3);
     m_VertexArray->SetIndexBuffer(ib);
 
-    std::string vertexSrc = R"(
-        #version 460 core
-        layout(location = 0) in vec3 aPosition;
-        void main()
-        {
-            gl_Position = vec4(a_Position, 1.0);
-        }
-    )";
-
-    std::string fragmentSrc = R"(
-        #version 460 core
-        out vec4 FragColor;
-        void main()
-        {
-            FragColor = vec4(0.2, 0.7, 0.3, 1.0);
-        }
-    )";
-
-    m_Shader = Loom::Shader::Create(vertexSrc, fragmentSrc);
+    m_Shader = Loom::Shader::Create("assets/shaders/Basic.glsl");
 
     m_Scene = Loom::CreateRef<Loom::Scene>();
     auto entityA = m_Scene->CreateEntity("Camera");
@@ -66,20 +48,21 @@ void EditorLayer::OnDetach()
 {
 }
 
-void EditorLayer::OnUpdate()
+void EditorLayer::OnUpdate(Loom::Timestep ts)
 {
+    m_EditorCamera.OnUpdate(ts);
+
     m_Framebuffer->Bind();
 
     Loom::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Loom::RenderCommand::Clear();
 
-    Loom::Renderer::BeginScene();
+    Loom::Renderer::BeginScene(m_EditorCamera);
     Loom::Renderer::Submit(m_Shader, m_VertexArray);
     Loom::Renderer::EndScene();
+    m_Framebuffer->Unbind();
 
     m_Scene->OnUpdate();
-
-    m_Framebuffer->Unbind();
 }
 
 void EditorLayer::OnImGuiRender()
@@ -93,9 +76,15 @@ void EditorLayer::OnImGuiRender()
     ImGui::End();
 
     ImGui::Begin("Viewport");
-    uint32_t texID = m_Framebuffer->GetColorAttachmentRendererID();
-    ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-    ImGui::Image((void*)(intptr_t)texID, viewportPanelSize, ImVec2(0, 1), ImVec2(1, 0));
+    ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+    if (m_ViewportSize.x != viewportSize.x || m_ViewportSize.y != viewportSize.y)
+    {
+        m_ViewportSize = { viewportSize.x, viewportSize.y };
+        m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+        m_EditorCamera.SetViewportSize(m_ViewportSize.x, m_ViewportSize.y);
+    }
+    uint32_t textureID = m_Framebuffer->GetColorAttachmentRendererID();
+    ImGui::Image(textureID, ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2(0, 1), ImVec2(1, 0));
     ImGui::End();
 }
 

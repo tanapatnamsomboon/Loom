@@ -9,6 +9,9 @@
 #include "Loom/Core/KeyCode.h"
 #include "Loom/Core/MouseCode.h"
 
+// Time
+#include "Loom/Core/Timestep.h"
+
 // Events
 #include "Loom/Events/Event.h"
 #include "Loom/Events/ApplicationEvent.h"
@@ -26,6 +29,8 @@
 #include "Loom/Renderer/VertexArray.h"
 #include "Loom/Renderer/Shader.h"
 #include "Loom/Renderer/Renderer.h"
+
+#include "Loom/Renderer/EditorCamera.h"
 
 // Scene
 #include "Loom/Scene/Scene.h"

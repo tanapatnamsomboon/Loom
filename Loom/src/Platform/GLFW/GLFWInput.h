@@ -9,6 +9,6 @@ namespace Loom
     protected:
         [[nodiscard]] bool IsKeyPressedImpl(KeyCode key) const override;
         [[nodiscard]] bool IsMouseButtonPressedImpl(MouseCode button) const override;
-        [[nodiscard]] std::pair<float, float> GetMousePositionImpl() const override;
+        [[nodiscard]] glm::vec2 GetMousePositionImpl() const override;
     };
 } // namespace Loom

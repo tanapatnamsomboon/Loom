@@ -54,16 +54,26 @@ namespace Loom
         m_Context = std::make_unique<OpenGLContext>(m_Window);
         m_Context->Init();
 
+        glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+        {
+            WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+            data.Width = width;
+            data.Height = height;
+
+            WindowResizeEvent event(width, height);
+            data.EventCallback(event);
+        });
+
         glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
         {
-            const WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
+            const WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
             WindowCloseEvent event;
             data.EventCallback(event);
         });
 
         glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
         {
-            const WindowData& data = *static_cast<WindowData *>(glfwGetWindowUserPointer(window));
+            const WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
             if (action == GLFW_PRESS)
             {

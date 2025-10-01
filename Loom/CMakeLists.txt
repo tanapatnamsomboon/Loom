@@ -10,6 +10,7 @@ add_library(Loom STATIC
         include/Loom/Core/Log.h
         include/Loom/Core/MouseCode.h
         include/Loom/Core/PlatformDetection.h
+        include/Loom/Core/Timestep.h
         include/Loom/ImGui/ImGuiLayer.h
         include/Loom/Renderer/GraphicsContext.h
         include/Loom/Renderer/RenderCommand.h
@@ -51,6 +52,9 @@ add_library(Loom STATIC
         src/Renderer/VertexArray.cpp
         src/Renderer/Shader.cpp
         src/Renderer/Buffer.cpp
+        include/Loom/Renderer/Camera.h
+        include/Loom/Renderer/EditorCamera.h
+        src/Renderer/EditorCamera.cpp
 )
 
 target_include_directories(Loom

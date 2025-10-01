@@ -20,11 +20,11 @@ namespace Loom
         return state == GLFW_PRESS;
     }
 
-    [[nodiscard]] std::pair<float, float> GLFWInput::GetMousePositionImpl() const
+    [[nodiscard]] glm::vec2 GLFWInput::GetMousePositionImpl() const
     {
         const auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
         double x, y;
         glfwGetCursorPos(window, &x, &y);
-        return { static_cast<float>(x), static_cast<float>(y) };
+        return glm::vec2{ static_cast<float>(x), static_cast<float>(y) };
     }
 } // namespace Loom

@@ -26,11 +26,13 @@ namespace Loom
         void Close();
 
     private:
+        bool OnWindowResize(WindowResizeEvent& e);
         bool OnWindowClose(WindowCloseEvent& e);
 
     private:
         Scope<Window> m_Window;
         bool m_Running = true;
+        bool m_Minimize = false;
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
 

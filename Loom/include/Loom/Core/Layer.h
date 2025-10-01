@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Loom/Events/Event.h"
+#include "Loom/Core/Timestep.h"
 #include <string>
 #include <utility>
 
@@ -17,7 +18,7 @@ namespace Loom
 
         virtual void OnAttach() {}
         virtual void OnDetach() {}
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep ts) {}
         virtual void OnImGuiRender() {}
         virtual void OnEvent(Event& event) {}
 
