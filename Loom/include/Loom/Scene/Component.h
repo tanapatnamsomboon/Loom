@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Loom/Renderer/SceneCamera.h"
 #include <glm/glm.hpp>
 #include <string>
 #include <utility>
@@ -32,7 +33,15 @@ namespace Loom
 
     struct CameraComponent
     {
+        SceneCamera Camera;
+        bool Primary = true;
+        bool FixedAspectRatio = false;
+
         CameraComponent() = default;
         CameraComponent(const CameraComponent&) = default;
+        explicit CameraComponent(const SceneCamera& camera)
+            : Camera(camera)
+        {
+        }
     };
 } // namespace Loom

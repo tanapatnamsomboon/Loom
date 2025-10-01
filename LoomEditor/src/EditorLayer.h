@@ -19,7 +19,10 @@ private:
 
 private:
     Loom::Ref<Loom::Framebuffer> m_Framebuffer;
-    Loom::Ref<Loom::Scene> m_Scene;
+    Loom::Ref<Loom::Scene> m_EditorScene;
+    Loom::Ref<Loom::Scene> m_ActiveScene;
+
+    bool m_Runtime = false;
 
     SceneHierarchyPanel m_SceneHierarchyPanel;
 

@@ -55,6 +55,8 @@ add_library(Loom STATIC
         include/Loom/Renderer/Camera.h
         include/Loom/Renderer/EditorCamera.h
         src/Renderer/EditorCamera.cpp
+        include/Loom/Renderer/SceneCamera.h
+        src/Renderer/SceneCamera.cpp
 )
 
 target_include_directories(Loom

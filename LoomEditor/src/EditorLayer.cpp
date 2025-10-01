@@ -19,29 +19,18 @@ void EditorLayer::OnAttach()
     Loom::FramebufferSpecification spec = { 1900, 600 };
     m_Framebuffer = Loom::Framebuffer::Create(spec);
 
-    float vertices[3 * 3] = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
-    };
-
-    uint32_t indices[3] = { 0, 1, 2 };
-
-    m_VertexArray = Loom::VertexArray::Create();
-    auto vb = Loom::VertexBuffer::Create(vertices, sizeof(vertices));
-    m_VertexArray->AddVertexBuffer(vb);
-
-    auto ib = Loom::IndexBuffer::Create(indices, 3);
-    m_VertexArray->SetIndexBuffer(ib);
-
     m_Shader = Loom::Shader::Create("assets/shaders/Basic.glsl");
 
-    m_Scene = Loom::CreateRef<Loom::Scene>();
-    auto entityA = m_Scene->CreateEntity("Camera");
-    auto entityB = m_Scene->CreateEntity("Light");
-    auto entityC = m_Scene->CreateEntity("Player");
+    m_EditorScene = Loom::CreateRef<Loom::Scene>();
 
-    m_SceneHierarchyPanel.SetContext(m_Scene);
+    auto cameraEntity = m_EditorScene->CreateEntity("Camera");
+    cameraEntity.AddComponent<Loom::CameraComponent>().Primary = true;
+
+    auto playerEntity = m_EditorScene->CreateEntity("Player");
+
+    m_ActiveScene = m_EditorScene;
+
+    m_SceneHierarchyPanel.SetContext(m_EditorScene);
 }
 
 void EditorLayer::OnDetach()
@@ -53,16 +42,19 @@ void EditorLayer::OnUpdate(Loom::Timestep ts)
     m_EditorCamera.OnUpdate(ts);
 
     m_Framebuffer->Bind();
-
     Loom::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Loom::RenderCommand::Clear();
 
-    Loom::Renderer::BeginScene(m_EditorCamera);
-    Loom::Renderer::Submit(m_Shader, m_VertexArray);
-    Loom::Renderer::EndScene();
-    m_Framebuffer->Unbind();
+    if (m_Runtime)
+    {
+        m_ActiveScene->OnUpdateRuntime(ts);
+    }
+    else
+    {
+        m_EditorScene->OnUpdateEditor(ts, m_EditorCamera);
+    }
 
-    m_Scene->OnUpdate();
+    m_Framebuffer->Unbind();
 }
 
 void EditorLayer::OnImGuiRender()
