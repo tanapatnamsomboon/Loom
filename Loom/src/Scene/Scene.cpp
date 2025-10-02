@@ -28,13 +28,15 @@ namespace Loom
     {
         Renderer::BeginScene(camera);
 
-        auto view = m_Registry.view<TransformComponent>();
-        for (auto e : view)
+        auto view = m_Registry.view<TransformComponent, MeshComponent>();
+        for (auto entity : view)
         {
-            auto& transform = view.get<TransformComponent>(e);
+            auto [transform, mesh] = view.get<TransformComponent, MeshComponent>(entity);
             glm::mat4 transformMat = glm::translate(glm::mat4(1.0f), transform.Translation)
                                    * glm::toMat4(glm::quat(transform.Rotation))
                                    * glm::scale(glm::mat4(1.0f), transform.Scale);
+
+            Renderer::Submit(mesh.ShaderRef, mesh.VertexArrayRef, transformMat);
         }
 
         Renderer::EndScene();

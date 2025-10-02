@@ -19,14 +19,25 @@ void EditorLayer::OnAttach()
     Loom::FramebufferSpecification spec = { 1900, 600 };
     m_Framebuffer = Loom::Framebuffer::Create(spec);
 
-    m_Shader = Loom::Shader::Create("assets/shaders/Basic.glsl");
-
     m_EditorScene = Loom::CreateRef<Loom::Scene>();
 
     auto cameraEntity = m_EditorScene->CreateEntity("Camera");
     cameraEntity.AddComponent<Loom::CameraComponent>().Primary = true;
 
     auto playerEntity = m_EditorScene->CreateEntity("Player");
+    float vertices[3 * 3] = {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f
+    };
+    uint32_t indices[3] = { 0, 1, 2 };
+    auto vao = Loom::VertexArray::Create();
+    auto vb = Loom::VertexBuffer::Create(vertices, sizeof(vertices));
+    vao->AddVertexBuffer(vb);
+    auto ib = Loom::IndexBuffer::Create(indices, sizeof(indices));
+    vao->SetIndexBuffer(ib);
+    auto shader = Loom::Shader::Create("assets/shaders/Basic.glsl");
+    playerEntity.AddComponent<Loom::MeshComponent>(vao, shader);
 
     m_ActiveScene = m_EditorScene;
 

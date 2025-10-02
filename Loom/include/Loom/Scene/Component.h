@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Loom/Renderer/SceneCamera.h"
+#include "Loom/Renderer/VertexArray.h"
+#include "Loom/Renderer/Shader.h"
 #include <glm/glm.hpp>
 #include <string>
 #include <utility>
@@ -39,8 +41,21 @@ namespace Loom
 
         CameraComponent() = default;
         CameraComponent(const CameraComponent&) = default;
-        explicit CameraComponent(const SceneCamera& camera)
-            : Camera(camera)
+        explicit CameraComponent(SceneCamera  camera)
+            : Camera(std::move(camera))
+        {
+        }
+    };
+
+    struct MeshComponent
+    {
+        Ref<VertexArray> VertexArrayRef;
+        Ref<Shader> ShaderRef;
+
+        MeshComponent() = default;
+        MeshComponent(const MeshComponent&) = default;
+        MeshComponent(const Ref<VertexArray>& vao, const Ref<Shader>& shader)
+            : VertexArrayRef(vao), ShaderRef(shader)
         {
         }
     };

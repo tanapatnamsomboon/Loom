@@ -26,9 +26,6 @@ private:
 
     SceneHierarchyPanel m_SceneHierarchyPanel;
 
-    Loom::Ref<Loom::VertexArray> m_VertexArray;
-    Loom::Ref<Loom::Shader> m_Shader;
-
     Loom::EditorCamera m_EditorCamera{ 45.0f, 1.778f, 0.1f, 1000.0f };
     glm::vec2 m_ViewportSize = { 0.0f, 0.0f };
 };
