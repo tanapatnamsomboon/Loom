@@ -11,6 +11,13 @@ namespace Loom
     {
     }
 
+    Ref<Scene> Scene::Copy(Ref<Scene> other)
+    {
+        Ref<Scene> newScene = CreateRef<Scene>();
+
+        return newScene;
+    }
+
     Entity Scene::CreateEntity(const std::string& name)
     {
         Entity entity = { m_Registry.create(), this };

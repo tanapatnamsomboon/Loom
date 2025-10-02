@@ -56,13 +56,17 @@ void EditorLayer::OnUpdate(Loom::Timestep ts)
     Loom::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Loom::RenderCommand::Clear();
 
-    if (m_Runtime)
+    switch (m_SceneState)
     {
-        m_ActiveScene->OnUpdateRuntime(ts);
-    }
-    else
-    {
-        m_EditorScene->OnUpdateEditor(ts, m_EditorCamera);
+        case SceneState::Play:
+        {
+            m_ActiveScene->OnUpdateRuntime(ts);
+        } break;
+        case SceneState::Edit:
+        {
+            m_EditorCamera.OnUpdate(ts);
+            m_EditorScene->OnUpdateEditor(ts, m_EditorCamera);
+        } break;
     }
 
     m_Framebuffer->Unbind();
@@ -141,8 +145,30 @@ void EditorLayer::DockspaceUI()
             }
             ImGui::EndMenu();
         }
+
+        ImGui::Separator();
+        if (ImGui::Button(m_SceneState == SceneState::Play ? "Stop" : "Play"))
+        {
+            if (m_SceneState == SceneState::Play)
+                OnSceneStop();
+            else
+                OnScenePlay();
+        }
+
         ImGui::EndMenuBar();
     }
 
     ImGui::End();
+}
+
+void EditorLayer::OnScenePlay()
+{
+    m_ActiveScene = Loom::Scene::Copy(m_EditorScene);
+    m_SceneState = SceneState::Play;
+}
+
+void EditorLayer::OnSceneStop()
+{
+    m_ActiveScene = m_EditorScene;
+    m_SceneState = SceneState::Edit;
 }

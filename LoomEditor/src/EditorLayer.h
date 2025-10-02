@@ -17,12 +17,20 @@ public:
 private:
     void DockspaceUI();
 
+    void OnScenePlay();
+    void OnSceneStop();
+
 private:
     Loom::Ref<Loom::Framebuffer> m_Framebuffer;
+
     Loom::Ref<Loom::Scene> m_EditorScene;
     Loom::Ref<Loom::Scene> m_ActiveScene;
 
-    bool m_Runtime = false;
+    enum class SceneState
+    {
+        Edit = 0, Play = 1
+    };
+    SceneState m_SceneState = SceneState::Edit;
 
     SceneHierarchyPanel m_SceneHierarchyPanel;
 
